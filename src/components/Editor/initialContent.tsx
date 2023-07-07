@@ -6,4 +6,15 @@ export const initialContent = `<h1>Meu Notion</h1>
   ut dolorem ipsa!
 </p>
 <a href="https://google.com.br">Aprender mais</a>
-<pre><code class="language-javascript">const name = 12;</code></pre>`
+<pre><code class="language-javascript">const name = 12;</code></pre>
+<ul data-type="taskList">
+  <li data-checked="true" data-type="taskItem">
+    <p>sugar</p>
+  </li>
+  <li data-checked="true" data-type="taskItem">
+    <p>milk</p>
+  </li>
+  <li data-checked="false" data-type="taskItem">
+    <p>eggs</p>
+  </li>
+</ul>`
