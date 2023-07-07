@@ -1,3 +1,5 @@
+import { Editor } from './components/Editor'
+
 function App() {
   return (
     <>
@@ -11,21 +13,7 @@ function App() {
             </div>
           </aside>
           <main className="p-4">
-            <div className="max-w-[700px] mx-auto pt-16 prose font-serif prose-emerald">
-              <h1>Meu Notion</h1>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio
-                molestiae quia, laudantium ducimus, quasi natus eius quidem
-                voluptatem esse, assumenda est? Corrupti earum molestias beatae
-                enim, consectetur ut dolorem ipsa!
-              </p>
-              <p>
-                <a href="#">Aprender mais</a>
-              </p>
-              <pre>
-                <code>&lt;div classname="bg-red-50"&gt; ola &lt;/div&gt;</code>
-              </pre>
-            </div>
+            <Editor />
           </main>
         </div>
       </div>
