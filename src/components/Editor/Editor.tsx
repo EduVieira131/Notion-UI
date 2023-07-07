@@ -1,4 +1,9 @@
-import { useEditor, EditorContent, BubbleMenu } from '@tiptap/react'
+import {
+  useEditor,
+  EditorContent,
+  BubbleMenu,
+  FloatingMenu,
+} from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import js from 'highlight.js/lib/languages/javascript'
@@ -14,7 +19,8 @@ import {
 } from 'react-icons/rx'
 
 import 'highlight.js/styles/agate.css'
-import { BubbleButton } from './BubbleButton'
+import { BubbleButton } from '../BubbleMenu/BubbleButton'
+import FloatingMenuButton from '../FloatingMenu/FloatingMenu'
 
 lowlight.registerLanguage('js', js)
 
@@ -40,6 +46,34 @@ export function Editor() {
         className="max-w-[700px] mx-auto pt-16 prose font-serif prose-emerald"
         editor={editor}
       />
+      {editor && (
+        <FloatingMenu
+          editor={editor}
+          className="bg-white py-2 px-1 shadow-md border border-neutral-50 shadow-black/20 rounded-lg 
+          overflow-hidden flex flex-col gap-2"
+          shouldShow={({ state }) => {
+            const { $from } = state.selection
+
+            const currentLineText = $from.nodeBefore?.textContent
+
+            return currentLineText === '/'
+          }}
+        >
+          <FloatingMenuButton
+            imgURL="http://www.notion.so/images/blocks/text/en-US.png"
+            title="Text"
+            description="Just start writing with plain text"
+          />
+          <FloatingMenuButton
+            imgURL="http://www.notion.so/images/blocks/header.57a7576a.png"
+            title="Heading 1"
+            description="Big section heading"
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 1 }).run()
+            }
+          />
+        </FloatingMenu>
+      )}
       {editor && (
         <BubbleMenu
           className="bg-white shadow-md border border-neutral-50 shadow-black/20 rounded-lg overflow-hidden flex divide-x divide-zinc-100"
