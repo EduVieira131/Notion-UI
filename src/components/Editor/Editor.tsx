@@ -6,6 +6,8 @@ import {
 } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import TaskItem from '@tiptap/extension-task-item'
+import TaskList from '@tiptap/extension-task-list'
 import js from 'highlight.js/lib/languages/javascript'
 import { initialContent } from './initialContent'
 import { lowlight } from 'lowlight'
@@ -31,6 +33,8 @@ export function Editor() {
       CodeBlockLowlight.configure({
         lowlight,
       }),
+      TaskList,
+      TaskItem,
     ],
     content: initialContent,
     editorProps: {
@@ -43,7 +47,7 @@ export function Editor() {
   return (
     <>
       <EditorContent
-        className="max-w-[700px] mx-auto pt-16 prose font-serif prose-emerald"
+        className="max-w-[700px] mx-auto pt-16 prose font-serif prose-emerald prose-li:flex prose-li:items-center prose-li:h-5 prose-li:gap-1 prose-li:list-none"
         editor={editor}
       />
 
@@ -89,6 +93,12 @@ export function Editor() {
             onClick={() =>
               editor.chain().focus().undo().toggleHeading({ level: 3 }).run()
             }
+          />
+          <FloatingMenuButton
+            imgURL="http://www.notion.so/images/blocks/subsubheader.d0ed0bb3.png"
+            title="Task list"
+            description="Small section heading"
+            onClick={() => editor.chain().undo().focus().toggleTaskList().run()}
           />
         </FloatingMenu>
       )}
