@@ -8,6 +8,8 @@ import StarterKit from '@tiptap/starter-kit'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
+import BulletList from '@tiptap/extension-bullet-list'
+import ListItem from '@tiptap/extension-list-item'
 import js from 'highlight.js/lib/languages/javascript'
 import { initialContent } from './initialContent'
 import { lowlight } from 'lowlight'
@@ -35,6 +37,8 @@ export function Editor() {
       }),
       TaskList,
       TaskItem,
+      BulletList,
+      ListItem,
     ],
     content: initialContent,
     editorProps: {
@@ -47,7 +51,7 @@ export function Editor() {
   return (
     <>
       <EditorContent
-        className="max-w-[700px] mx-auto pt-16 prose font-serif prose-emerald prose-li:flex prose-li:items-center prose-li:h-5 prose-li:gap-1 prose-li:list-none"
+        className="max-w-[700px] mx-auto pt-16 prose font-serif prose-emerald"
         editor={editor}
       />
 
@@ -99,6 +103,14 @@ export function Editor() {
             title="To-do list"
             description="Track tasks with a to-do list."
             onClick={() => editor.chain().undo().focus().toggleTaskList().run()}
+          />
+          <FloatingMenuButton
+            imgURL="http://www.notion.so/images/blocks/bulleted-list.0e87e917.png"
+            title="Bulleted list"
+            description="Create a simple bulleted list."
+            onClick={() =>
+              editor.chain().focus().undo().toggleBulletList().run()
+            }
           />
         </FloatingMenu>
       )}
