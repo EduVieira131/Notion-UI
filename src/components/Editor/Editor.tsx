@@ -95,9 +95,9 @@ export function Editor() {
             }
           />
           <FloatingMenuButton
-            imgURL="http://www.notion.so/images/blocks/subsubheader.d0ed0bb3.png"
-            title="Task list"
-            description="Small section heading"
+            imgURL="http://www.notion.so/images/blocks/to-do.f8d20542.png"
+            title="To-do list"
+            description="Track tasks with a to-do list."
             onClick={() => editor.chain().undo().focus().toggleTaskList().run()}
           />
         </FloatingMenu>
