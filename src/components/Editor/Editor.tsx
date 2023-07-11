@@ -11,6 +11,8 @@ import TaskList from '@tiptap/extension-task-list'
 import BulletList from '@tiptap/extension-bullet-list'
 import ListItem from '@tiptap/extension-list-item'
 import Placeholder from '@tiptap/extension-placeholder'
+import HorizontalRule from '@tiptap/extension-horizontal-rule'
+import Typography from '@tiptap/extension-typography'
 import js from 'highlight.js/lib/languages/javascript'
 import { initialContent } from './initialContent'
 import { lowlight } from 'lowlight'
@@ -41,8 +43,10 @@ export function Editor() {
       BulletList,
       ListItem,
       Placeholder.configure({
-        placeholder: 'Write something...',
+        placeholder: 'Type / for commands...',
       }),
+      HorizontalRule,
+      Typography,
     ],
     content: initialContent,
     editorProps: {
@@ -55,7 +59,7 @@ export function Editor() {
   return (
     <>
       <EditorContent
-        className="max-w-[700px] mx-auto pt-16 prose font-serif prose-emerald"
+        className="max-w-[700px] mx-auto pt-16 prose font-serif prose-emerald prose-p:m-1 prose-hr:my-1"
         editor={editor}
       />
 
@@ -115,6 +119,20 @@ export function Editor() {
             onClick={() =>
               editor.chain().focus().undo().toggleBulletList().run()
             }
+          />
+          <FloatingMenuButton
+            imgURL="http://www.notion.so/images/blocks/code.a8b201f4.png"
+            title="Code"
+            description="Capture a code snippet."
+            onClick={() =>
+              editor.chain().focus().undo().toggleCodeBlock().run()
+            }
+          />
+          <FloatingMenuButton
+            imgURL="http://www.notion.so/images/blocks/divider.210d0faf.png"
+            title="Divider"
+            description="Visually divide blocks."
+            onClick={() => editor.chain().undo().setHorizontalRule().run()}
           />
         </FloatingMenu>
       )}
