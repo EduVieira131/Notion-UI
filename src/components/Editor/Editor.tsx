@@ -25,6 +25,8 @@ import {
   RxChatBubble,
 } from 'react-icons/rx'
 
+import * as ToggleGroup from '@radix-ui/react-toggle-group'
+
 import 'highlight.js/styles/agate.css'
 import { BubbleButton } from '../BubbleMenu/BubbleButton'
 import FloatingMenuButton from '../FloatingMenu/FloatingMenu'
@@ -151,35 +153,49 @@ export function Editor() {
             Comment
           </BubbleButton>
 
-          <div className="flex items-center">
-            <BubbleButton
-              onClick={() => editor.chain().focus().toggleBold().run()}
-              data-active={editor.isActive('bold')}
-            >
-              <RxFontBold classname="w-5 h-5" />
-            </BubbleButton>
+          <ToggleGroup.Root
+            className="flex gap-1 items-center"
+            type="multiple"
+            defaultValue={['bold', 'italic', 'strike', 'code']}
+            rovingFocus={true}
+            aria-label="Text alignment"
+          >
+            <ToggleGroup.Item value="bold" aria-label="Bold selection">
+              <BubbleButton
+                onClick={() => editor.chain().focus().toggleBold().run()}
+                data-active={editor.isActive('bold')}
+              >
+                <RxFontBold classname="w-5 h-5" />
+              </BubbleButton>
+            </ToggleGroup.Item>
 
-            <BubbleButton
-              onClick={() => editor.chain().focus().toggleItalic().run()}
-              data-active={editor.isActive('italic')}
-            >
-              <RxFontItalic classname="w-5 h-5" />
-            </BubbleButton>
+            <ToggleGroup.Item value="italic" aria-label="italic selection">
+              <BubbleButton
+                onClick={() => editor.chain().focus().toggleItalic().run()}
+                data-active={editor.isActive('italic')}
+              >
+                <RxFontItalic classname="w-5 h-5" />
+              </BubbleButton>
+            </ToggleGroup.Item>
 
-            <BubbleButton
-              onClick={() => editor.chain().focus().toggleStrike().run()}
-              data-active={editor.isActive('strike')}
-            >
-              <RxStrikethrough classname="w-5 h-5" />
-            </BubbleButton>
+            <ToggleGroup.Item value="strike" aria-label="Strike selection">
+              <BubbleButton
+                onClick={() => editor.chain().focus().toggleStrike().run()}
+                data-active={editor.isActive('strike')}
+              >
+                <RxStrikethrough classname="w-5 h-5" />
+              </BubbleButton>
+            </ToggleGroup.Item>
 
-            <BubbleButton
-              onClick={() => editor.chain().focus().toggleCode().run()}
-              data-active={editor.isActive('code')}
-            >
-              <RxCode classname="w-5 h-5" />
-            </BubbleButton>
-          </div>
+            <ToggleGroup.Item value="code" aria-label="Code snippet">
+              <BubbleButton
+                onClick={() => editor.chain().focus().toggleCode().run()}
+                data-active={editor.isActive('code')}
+              >
+                <RxCode classname="w-5 h-5" />
+              </BubbleButton>
+            </ToggleGroup.Item>
+          </ToggleGroup.Root>
         </BubbleMenu>
       )}
     </>
