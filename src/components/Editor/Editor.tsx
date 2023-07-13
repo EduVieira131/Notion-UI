@@ -26,6 +26,8 @@ import {
 } from 'react-icons/rx'
 
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
+import * as Toolbar from '@radix-ui/react-toolbar'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import 'highlight.js/styles/agate.css'
 import { BubbleButton } from '../BubbleMenu/BubbleButton'
@@ -144,62 +146,71 @@ export function Editor() {
       )}
 
       {editor && (
-        <BubbleMenu
-          className="bg-white shadow-md border border-neutral-50 shadow-black/20 rounded-lg overflow-hidden flex divide-x divide-zinc-100"
-          editor={editor}
-        >
-          <BubbleButton>
-            Text
-            <RxChevronDown classname="w-5 h-5" />
-          </BubbleButton>
-          <BubbleButton>
-            <RxChatBubble classname="w-5 h-5" />
-            Comment
-          </BubbleButton>
+        <BubbleMenu editor={editor}>
+          <Toolbar.Root className="flex items-center overflow-hidden bg-white shadow-md border border-neutral-50 shadow-black/20 rounded-lg">
+            <DropdownMenu.Root>
+              <Toolbar.Button asChild>
+                <DropdownMenu.Trigger className="p-2 text-zinc-600 text-sm flex items-center gap-1.5 font-medium leading-none hover:text-zinc-700 hover:bg-zinc-100 data-[active=true]:text-emerald-400">
+                  Text
+                  <RxChevronDown classname="w-5 h-5" />
+                </DropdownMenu.Trigger>
+              </Toolbar.Button>
 
-          <ToggleGroup.Root
-            className="flex gap-1 items-center"
-            type="multiple"
-            defaultValue={['bold', 'italic', 'strike', 'code']}
-            rovingFocus={true}
-            aria-label="Text alignment"
-          >
-            <ToggleGroup.Item value="bold" aria-label="Bold selection">
-              <BubbleButton
-                onClick={() => editor.chain().focus().toggleBold().run()}
-                data-active={editor.isActive('bold')}
-              >
-                <RxFontBold classname="w-5 h-5" />
-              </BubbleButton>
-            </ToggleGroup.Item>
+              <DropdownMenu.Content className="flex flex-col justify-center overflow-hidden bg-white shadow-md border border-neutral-50 shadow-black/20 rounded-lg p-2">
+                Funcionou
+              </DropdownMenu.Content>
 
-            <ToggleGroup.Item value="italic" aria-label="italic selection">
-              <BubbleButton
-                onClick={() => editor.chain().focus().toggleItalic().run()}
-                data-active={editor.isActive('italic')}
-              >
-                <RxFontItalic classname="w-5 h-5" />
-              </BubbleButton>
-            </ToggleGroup.Item>
+              <Toolbar.Separator className="w-[1px] h-5 bg-zinc-200 mx-1" />
 
-            <ToggleGroup.Item value="strike" aria-label="Strike selection">
-              <BubbleButton
-                onClick={() => editor.chain().focus().toggleStrike().run()}
-                data-active={editor.isActive('strike')}
+              <Toolbar.ToggleGroup
+                className="flex gap-1 items-center"
+                type="multiple"
+                rovingFocus={true}
               >
-                <RxStrikethrough classname="w-5 h-5" />
-              </BubbleButton>
-            </ToggleGroup.Item>
+                <Toolbar.ToggleItem value="bold" aria-label="Bold selection">
+                  <BubbleButton
+                    onClick={() => editor.chain().focus().toggleBold().run()}
+                    data-active={editor.isActive('bold')}
+                  >
+                    <RxFontBold classname="w-5 h-5" />
+                  </BubbleButton>
+                </Toolbar.ToggleItem>
 
-            <ToggleGroup.Item value="code" aria-label="Code snippet">
-              <BubbleButton
-                onClick={() => editor.chain().focus().toggleCode().run()}
-                data-active={editor.isActive('code')}
-              >
-                <RxCode classname="w-5 h-5" />
-              </BubbleButton>
-            </ToggleGroup.Item>
-          </ToggleGroup.Root>
+                <Toolbar.ToggleItem
+                  value="italic"
+                  aria-label="italic selection"
+                >
+                  <BubbleButton
+                    onClick={() => editor.chain().focus().toggleItalic().run()}
+                    data-active={editor.isActive('italic')}
+                  >
+                    <RxFontItalic classname="w-5 h-5" />
+                  </BubbleButton>
+                </Toolbar.ToggleItem>
+
+                <Toolbar.ToggleItem
+                  value="strike"
+                  aria-label="Strike selection"
+                >
+                  <BubbleButton
+                    onClick={() => editor.chain().focus().toggleStrike().run()}
+                    data-active={editor.isActive('strike')}
+                  >
+                    <RxStrikethrough classname="w-5 h-5" />
+                  </BubbleButton>
+                </Toolbar.ToggleItem>
+
+                <Toolbar.ToggleItem value="code" aria-label="Code snippet">
+                  <BubbleButton
+                    onClick={() => editor.chain().focus().toggleCode().run()}
+                    data-active={editor.isActive('code')}
+                  >
+                    <RxCode classname="w-5 h-5" />
+                  </BubbleButton>
+                </Toolbar.ToggleItem>
+              </Toolbar.ToggleGroup>
+            </DropdownMenu.Root>
+          </Toolbar.Root>
         </BubbleMenu>
       )}
     </>
