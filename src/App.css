@@ -5,3 +5,10 @@
   height: 0;
   pointer-events: none;
 }
+
+#taskItem {
+  list-style:none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

@@ -41,7 +41,11 @@ export function Editor() {
         lowlight,
       }),
       TaskList,
-      TaskItem,
+      TaskItem.configure({
+        HTMLAttributes: {
+          id: 'taskItem',
+        },
+      }),
       BulletList,
       ListItem,
       Placeholder.configure({
