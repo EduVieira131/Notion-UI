@@ -7,10 +7,7 @@
 }
 
 #taskItem {
-  list-style:none;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  @apply list-none flex items-center gap-1
 }
 
 #inlineCode {
