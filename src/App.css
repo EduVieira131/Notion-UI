@@ -12,3 +12,7 @@
   align-items: center;
   gap: 4px;
 }
+
+#inlineCode {
+  @apply bg-zinc-300 p-1 rounded box-decoration-clone text-emerald-600 font-bold before:content-[''] after:content-['']
+}

@@ -13,6 +13,7 @@ import ListItem from '@tiptap/extension-list-item'
 import Placeholder from '@tiptap/extension-placeholder'
 import HorizontalRule from '@tiptap/extension-horizontal-rule'
 import Typography from '@tiptap/extension-typography'
+import Code from '@tiptap/extension-code'
 import js from 'highlight.js/lib/languages/javascript'
 import { initialContent } from './initialContent'
 import { lowlight } from 'lowlight'
@@ -55,6 +56,11 @@ export function Editor() {
       }),
       HorizontalRule,
       Typography,
+      Code.configure({
+        HTMLAttributes: {
+          id: 'inlineCode',
+        },
+      }),
     ],
     content: initialContent,
     editorProps: {
@@ -200,7 +206,7 @@ export function Editor() {
                   </BubbleButton>
                 </Toolbar.ToggleItem>
 
-                <Toolbar.ToggleItem value="code" aria-label="Code snippet">
+                <Toolbar.ToggleItem value="code" aria-label="Inline code">
                   <BubbleButton
                     onClick={() => editor.chain().focus().toggleCode().run()}
                     data-active={editor.isActive('code')}
