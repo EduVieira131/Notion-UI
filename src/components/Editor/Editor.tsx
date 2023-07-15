@@ -23,15 +23,12 @@ import {
   RxStrikethrough,
   RxCode,
   RxChevronDown,
-  RxChatBubble,
 } from 'react-icons/rx'
 
 import * as Toolbar from '@radix-ui/react-toolbar'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import 'highlight.js/styles/agate.css'
-import { BubbleButton } from '../BubbleMenu/BubbleButton'
-import FloatingMenuButton from '../FloatingMenu/FloatingMenu'
 import { Button } from '../Button'
 
 lowlight.registerLanguage('js', js)
@@ -223,9 +220,7 @@ export function Editor() {
                 <h2 className="text-xs text-zinc-500 my-1 ml-3">Turn into</h2>
 
                 <Button.Root
-                  onSubmit={() =>
-                    editor.chain().focus().clearNodes().run()
-                  }
+                  onSubmit={() => editor.chain().focus().clearNodes().run()}
                 >
                   <Button.Image
                     url="http://www.notion.so/images/blocks/text/en-US.png"
@@ -236,12 +231,7 @@ export function Editor() {
 
                 <Button.Root
                   onSubmit={() =>
-                    editor
-                      .chain()
-                      .focus()
-                      
-                      .toggleHeading({ level: 1 })
-                      .run()
+                    editor.chain().focus().toggleHeading({ level: 1 }).run()
                   }
                 >
                   <Button.Image
@@ -253,12 +243,7 @@ export function Editor() {
 
                 <Button.Root
                   onSubmit={() =>
-                    editor
-                      .chain()
-                      .focus()
-                      
-                      .toggleHeading({ level: 2 })
-                      .run()
+                    editor.chain().focus().toggleHeading({ level: 2 }).run()
                   }
                 >
                   <Button.Image
@@ -270,12 +255,7 @@ export function Editor() {
 
                 <Button.Root
                   onSubmit={() =>
-                    editor
-                      .chain()
-                      .focus()
-                      
-                      .toggleHeading({ level: 3 })
-                      .run()
+                    editor.chain().focus().toggleHeading({ level: 3 }).run()
                   }
                 >
                   <Button.Image
@@ -286,9 +266,7 @@ export function Editor() {
                 </Button.Root>
 
                 <Button.Root
-                  onSubmit={() =>
-                    editor.chain().focus().toggleTaskList().run()
-                  }
+                  onSubmit={() => editor.chain().focus().toggleTaskList().run()}
                 >
                   <Button.Image
                     url="http://www.notion.so/images/blocks/to-do.f8d20542.png"
