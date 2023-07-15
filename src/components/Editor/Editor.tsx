@@ -26,13 +26,13 @@ import {
   RxChatBubble,
 } from 'react-icons/rx'
 
-import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import * as Toolbar from '@radix-ui/react-toolbar'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import 'highlight.js/styles/agate.css'
 import { BubbleButton } from '../BubbleMenu/BubbleButton'
 import FloatingMenuButton from '../FloatingMenu/FloatingMenu'
+import { Button } from '../Button'
 
 lowlight.registerLanguage('js', js)
 
@@ -90,80 +90,236 @@ export function Editor() {
             return currentLineText === '/'
           }}
         >
-          <FloatingMenuButton
-            imgURL="http://www.notion.so/images/blocks/text/en-US.png"
-            title="Text"
-            description="Just start writing with plain text"
-            onClick={() => editor.chain().focus().undo().run()}
-          />
-          <FloatingMenuButton
-            imgURL="http://www.notion.so/images/blocks/header.57a7576a.png"
-            title="Heading 1"
-            description="Big section heading"
-            onClick={() =>
+          <Button.Root
+            onSubmit={() => editor.chain().focus().undo().clearNodes().run()}
+          >
+            <Button.Image
+              url="http://www.notion.so/images/blocks/text/en-US.png"
+              className="w-11"
+            />
+            <Button.Content
+              title="Text"
+              description="Just start writing with plain text"
+            />
+          </Button.Root>
+
+          <Button.Root
+            onSubmit={() => editor.chain().undo().setHorizontalRule().run()}
+          >
+            <Button.Image
+              url="http://www.notion.so/images/blocks/divider.210d0faf.png"
+              className="w-11"
+            />
+            <Button.Content
+              title="Divider"
+              description="Visually divide blocks."
+            />
+          </Button.Root>
+
+          <Button.Root
+            onSubmit={() =>
               editor.chain().focus().undo().toggleHeading({ level: 1 }).run()
             }
-          />
-          <FloatingMenuButton
-            imgURL="http://www.notion.so/images/blocks/subheader.9aab4769.png"
-            title="Heading 2"
-            description="Medium section heading"
-            onClick={() =>
+          >
+            <Button.Image
+              url="http://www.notion.so/images/blocks/header.57a7576a.png"
+              className="w-11"
+            />
+            <Button.Content
+              title="Heading 1"
+              description="Big section heading"
+            />
+          </Button.Root>
+
+          <Button.Root
+            onSubmit={() =>
               editor.chain().focus().undo().toggleHeading({ level: 2 }).run()
             }
-          />
-          <FloatingMenuButton
-            imgURL="http://www.notion.so/images/blocks/subsubheader.d0ed0bb3.png"
-            title="Heading 3"
-            description="Small section heading"
-            onClick={() =>
+          >
+            <Button.Image
+              url="http://www.notion.so/images/blocks/subheader.9aab4769.png"
+              className="w-11"
+            />
+            <Button.Content
+              title="Heading 2"
+              description="Medium section heading"
+            />
+          </Button.Root>
+
+          <Button.Root
+            onSubmit={() =>
               editor.chain().focus().undo().toggleHeading({ level: 3 }).run()
             }
-          />
-          <FloatingMenuButton
-            imgURL="http://www.notion.so/images/blocks/to-do.f8d20542.png"
-            title="To-do list"
-            description="Track tasks with a to-do list."
-            onClick={() => editor.chain().undo().focus().toggleTaskList().run()}
-          />
-          <FloatingMenuButton
-            imgURL="http://www.notion.so/images/blocks/bulleted-list.0e87e917.png"
-            title="Bulleted list"
-            description="Create a simple bulleted list."
-            onClick={() =>
+          >
+            <Button.Image
+              url="http://www.notion.so/images/blocks/subsubheader.d0ed0bb3.png"
+              className="w-11"
+            />
+            <Button.Content
+              title="Heading 3"
+              description="Small section heading"
+            />
+          </Button.Root>
+
+          <Button.Root
+            onSubmit={() =>
+              editor.chain().undo().focus().toggleTaskList().run()
+            }
+          >
+            <Button.Image
+              url="http://www.notion.so/images/blocks/to-do.f8d20542.png"
+              className="w-11"
+            />
+            <Button.Content
+              title="To-do list"
+              description="Track tasks with a to-do list."
+            />
+          </Button.Root>
+
+          <Button.Root
+            onSubmit={() =>
               editor.chain().focus().undo().toggleBulletList().run()
             }
-          />
-          <FloatingMenuButton
-            imgURL="http://www.notion.so/images/blocks/code.a8b201f4.png"
-            title="Code"
-            description="Capture a code snippet."
-            onClick={() =>
+          >
+            <Button.Image
+              url="http://www.notion.so/images/blocks/bulleted-list.0e87e917.png"
+              className="w-11"
+            />
+            <Button.Content
+              title="Bulleted list"
+              description="Create a simple bulleted list."
+            />
+          </Button.Root>
+
+          <Button.Root
+            onSubmit={() =>
               editor.chain().focus().undo().toggleCodeBlock().run()
             }
-          />
-          <FloatingMenuButton
-            imgURL="http://www.notion.so/images/blocks/divider.210d0faf.png"
-            title="Divider"
-            description="Visually divide blocks."
-            onClick={() => editor.chain().undo().setHorizontalRule().run()}
-          />
+          >
+            <Button.Image
+              url="http://www.notion.so/images/blocks/code.a8b201f4.png"
+              className="w-11"
+            />
+            <Button.Content
+              title="Code"
+              description="Capture a code snippet."
+            />
+          </Button.Root>
         </FloatingMenu>
       )}
 
       {editor && (
         <BubbleMenu editor={editor}>
-          <Toolbar.Root className="flex items-center overflow-hidden bg-white shadow-md border border-neutral-50 shadow-black/20 rounded-lg">
+          <Toolbar.Root className="flex items-center overflow-hidden bg-white shadow-sm border border-neutral-50 shadow-black/20 rounded-lg p-1">
             <DropdownMenu.Root>
               <Toolbar.Button asChild>
-                <DropdownMenu.Trigger className="p-2 text-zinc-600 text-sm flex items-center gap-1.5 font-medium leading-none hover:text-zinc-700 hover:bg-zinc-100 data-[active=true]:text-emerald-400">
-                  Text
+                <DropdownMenu.Trigger className="p-2 text-zinc-600 text-xs flex items-center gap-1.5 font-medium leading-none hover:bg-zinc-100">
+                  Formatting
                   <RxChevronDown classname="w-5 h-5" />
                 </DropdownMenu.Trigger>
               </Toolbar.Button>
 
-              <DropdownMenu.Content className="flex flex-col justify-center overflow-hidden bg-white shadow-md border border-neutral-50 shadow-black/20 rounded-lg p-2">
-                Funcionou
+              <DropdownMenu.Content className="min-w-[200px] flex flex-col p-1 justify-center overflow-hidden bg-white shadow-sm border border-neutral-50 shadow-black/20 rounded-lg">
+                <h2 className="text-xs text-zinc-500 my-1 ml-3">Turn into</h2>
+
+                <Button.Root
+                  onSubmit={() =>
+                    editor.chain().focus().clearNodes().run()
+                  }
+                >
+                  <Button.Image
+                    url="http://www.notion.so/images/blocks/text/en-US.png"
+                    className="w-8"
+                  />
+                  <Button.Content title="Text" />
+                </Button.Root>
+
+                <Button.Root
+                  onSubmit={() =>
+                    editor
+                      .chain()
+                      .focus()
+                      
+                      .toggleHeading({ level: 1 })
+                      .run()
+                  }
+                >
+                  <Button.Image
+                    url="http://www.notion.so/images/blocks/header.57a7576a.png"
+                    className="w-8"
+                  />
+                  <Button.Content title="Heading 1" />
+                </Button.Root>
+
+                <Button.Root
+                  onSubmit={() =>
+                    editor
+                      .chain()
+                      .focus()
+                      
+                      .toggleHeading({ level: 2 })
+                      .run()
+                  }
+                >
+                  <Button.Image
+                    url="http://www.notion.so/images/blocks/subheader.9aab4769.png"
+                    className="w-8"
+                  />
+                  <Button.Content title="Heading 2" />
+                </Button.Root>
+
+                <Button.Root
+                  onSubmit={() =>
+                    editor
+                      .chain()
+                      .focus()
+                      
+                      .toggleHeading({ level: 3 })
+                      .run()
+                  }
+                >
+                  <Button.Image
+                    url="http://www.notion.so/images/blocks/subsubheader.d0ed0bb3.png"
+                    className="w-8"
+                  />
+                  <Button.Content title="Heading 3" />
+                </Button.Root>
+
+                <Button.Root
+                  onSubmit={() =>
+                    editor.chain().focus().toggleTaskList().run()
+                  }
+                >
+                  <Button.Image
+                    url="http://www.notion.so/images/blocks/to-do.f8d20542.png"
+                    className="w-8"
+                  />
+                  <Button.Content title="To-do list" />
+                </Button.Root>
+
+                <Button.Root
+                  onSubmit={() =>
+                    editor.chain().focus().toggleBulletList().run()
+                  }
+                >
+                  <Button.Image
+                    url="http://www.notion.so/images/blocks/bulleted-list.0e87e917.png"
+                    className="w-8"
+                  />
+                  <Button.Content title="Bulleted list" />
+                </Button.Root>
+
+                <Button.Root
+                  onSubmit={() =>
+                    editor.chain().focus().toggleCodeBlock().run()
+                  }
+                >
+                  <Button.Image
+                    url="http://www.notion.so/images/blocks/code.a8b201f4.png"
+                    className="w-8"
+                  />
+                  <Button.Content title="Code" />
+                </Button.Root>
               </DropdownMenu.Content>
 
               <Toolbar.Separator className="w-[1px] h-5 bg-zinc-200 mx-1" />
@@ -174,45 +330,45 @@ export function Editor() {
                 rovingFocus={true}
               >
                 <Toolbar.ToggleItem value="bold" aria-label="Bold selection">
-                  <BubbleButton
-                    onClick={() => editor.chain().focus().toggleBold().run()}
-                    data-active={editor.isActive('bold')}
+                  <Button.Root
+                    onSubmit={() => editor.chain().focus().toggleBold().run()}
+                    data={editor.isActive('bold')}
                   >
-                    <RxFontBold classname="w-5 h-5" />
-                  </BubbleButton>
+                    <Button.Icon icon={RxFontBold} />
+                  </Button.Root>
                 </Toolbar.ToggleItem>
 
                 <Toolbar.ToggleItem
                   value="italic"
                   aria-label="italic selection"
                 >
-                  <BubbleButton
-                    onClick={() => editor.chain().focus().toggleItalic().run()}
-                    data-active={editor.isActive('italic')}
+                  <Button.Root
+                    onSubmit={() => editor.chain().focus().toggleItalic().run()}
+                    data={editor.isActive('italic')}
                   >
-                    <RxFontItalic classname="w-5 h-5" />
-                  </BubbleButton>
+                    <Button.Icon icon={RxFontItalic} />
+                  </Button.Root>
                 </Toolbar.ToggleItem>
 
                 <Toolbar.ToggleItem
                   value="strike"
                   aria-label="Strike selection"
                 >
-                  <BubbleButton
-                    onClick={() => editor.chain().focus().toggleStrike().run()}
-                    data-active={editor.isActive('strike')}
+                  <Button.Root
+                    onSubmit={() => editor.chain().focus().toggleStrike().run()}
+                    data={editor.isActive('strike')}
                   >
-                    <RxStrikethrough classname="w-5 h-5" />
-                  </BubbleButton>
+                    <Button.Icon icon={RxStrikethrough} />
+                  </Button.Root>
                 </Toolbar.ToggleItem>
 
                 <Toolbar.ToggleItem value="code" aria-label="Inline code">
-                  <BubbleButton
-                    onClick={() => editor.chain().focus().toggleCode().run()}
-                    data-active={editor.isActive('code')}
+                  <Button.Root
+                    onSubmit={() => editor.chain().focus().toggleCode().run()}
+                    data={editor.isActive('code')}
                   >
-                    <RxCode classname="w-5 h-5" />
-                  </BubbleButton>
+                    <Button.Icon icon={RxCode} />
+                  </Button.Root>
                 </Toolbar.ToggleItem>
               </Toolbar.ToggleGroup>
             </DropdownMenu.Root>
