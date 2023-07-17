@@ -14,6 +14,7 @@ import Placeholder from '@tiptap/extension-placeholder'
 import HorizontalRule from '@tiptap/extension-horizontal-rule'
 import Typography from '@tiptap/extension-typography'
 import Code from '@tiptap/extension-code'
+import Highlight from '@tiptap/extension-highlight'
 import js from 'highlight.js/lib/languages/javascript'
 import { initialContent } from './initialContent'
 import { lowlight } from 'lowlight'
@@ -23,6 +24,7 @@ import {
   RxStrikethrough,
   RxCode,
   RxChevronDown,
+  RxPencil1,
 } from 'react-icons/rx'
 
 import * as Toolbar from '@radix-ui/react-toolbar'
@@ -57,6 +59,9 @@ export function Editor() {
         HTMLAttributes: {
           id: 'inlineCode',
         },
+      }),
+      Highlight.configure({
+        multicolor: true,
       }),
     ],
     content: initialContent,
@@ -299,56 +304,145 @@ export function Editor() {
                   <Button.Content title="Code" />
                 </Button.Root>
               </DropdownMenu.Content>
+            </DropdownMenu.Root>
 
-              <Toolbar.Separator className="w-[1px] h-5 bg-zinc-200 mx-1" />
+            <Toolbar.Separator className="w-[1px] h-5 bg-zinc-200 mx-1" />
 
-              <Toolbar.ToggleGroup
-                className="flex gap-1 items-center"
-                type="multiple"
-                rovingFocus={true}
-              >
-                <Toolbar.ToggleItem value="bold" aria-label="Bold selection">
-                  <Button.Root
-                    onSubmit={() => editor.chain().focus().toggleBold().run()}
-                    data={editor.isActive('bold')}
-                  >
-                    <Button.Icon icon={RxFontBold} />
-                  </Button.Root>
-                </Toolbar.ToggleItem>
-
-                <Toolbar.ToggleItem
-                  value="italic"
-                  aria-label="italic selection"
+            <Toolbar.ToggleGroup
+              className="flex gap-1 items-center"
+              type="multiple"
+              rovingFocus={true}
+            >
+              <Toolbar.ToggleItem value="bold" aria-label="Bold selection">
+                <Button.Root
+                  onSubmit={() => editor.chain().focus().toggleBold().run()}
+                  data={editor.isActive('bold')}
                 >
-                  <Button.Root
-                    onSubmit={() => editor.chain().focus().toggleItalic().run()}
-                    data={editor.isActive('italic')}
-                  >
-                    <Button.Icon icon={RxFontItalic} />
-                  </Button.Root>
-                </Toolbar.ToggleItem>
+                  <Button.Icon icon={RxFontBold} />
+                </Button.Root>
+              </Toolbar.ToggleItem>
 
-                <Toolbar.ToggleItem
-                  value="strike"
-                  aria-label="Strike selection"
+              <Toolbar.ToggleItem value="italic" aria-label="italic selection">
+                <Button.Root
+                  onSubmit={() => editor.chain().focus().toggleItalic().run()}
+                  data={editor.isActive('italic')}
                 >
-                  <Button.Root
-                    onSubmit={() => editor.chain().focus().toggleStrike().run()}
-                    data={editor.isActive('strike')}
-                  >
-                    <Button.Icon icon={RxStrikethrough} />
-                  </Button.Root>
-                </Toolbar.ToggleItem>
+                  <Button.Icon icon={RxFontItalic} />
+                </Button.Root>
+              </Toolbar.ToggleItem>
 
-                <Toolbar.ToggleItem value="code" aria-label="Inline code">
+              <Toolbar.ToggleItem value="strike" aria-label="Strike selection">
+                <Button.Root
+                  onSubmit={() => editor.chain().focus().toggleStrike().run()}
+                  data={editor.isActive('strike')}
+                >
+                  <Button.Icon icon={RxStrikethrough} />
+                </Button.Root>
+              </Toolbar.ToggleItem>
+
+              <Toolbar.ToggleItem value="code" aria-label="Inline code">
+                <Button.Root
+                  onSubmit={() => editor.chain().focus().toggleCode().run()}
+                  data={editor.isActive('code')}
+                >
+                  <Button.Icon icon={RxCode} />
+                </Button.Root>
+              </Toolbar.ToggleItem>
+            </Toolbar.ToggleGroup>
+
+            <Toolbar.Separator className="w-[1px] h-5 bg-zinc-200 mx-1" />
+
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger className="p-2 text-zinc-600 text-xs flex items-center gap-1.5 font-medium leading-none hover:bg-zinc-100">
+                A
+                <RxChevronDown classname="w-5 h-5" />
+              </DropdownMenu.Trigger>
+
+              <DropdownMenu.Content className="w-fit flex flex-col p-4 justify-center overflow-hidden bg-white shadow-sm border border-neutral-50 shadow-black/20 rounded-lg">
+                <DropdownMenu.Group>
+                  <h2 className="text-xs text-zinc-500 mb-2">Background</h2>
+
                   <Button.Root
-                    onSubmit={() => editor.chain().focus().toggleCode().run()}
-                    data={editor.isActive('code')}
+                    onSubmit={() => {
+                      editor.chain().focus().unsetHighlight().run()
+                    }}
+                    data={!editor.isActive('highlight')}
                   >
-                    <Button.Icon icon={RxCode} />
+                    <Button.Icon icon={RxPencil1}/>
+                    <Button.Content title="Default" />
                   </Button.Root>
-                </Toolbar.ToggleItem>
-              </Toolbar.ToggleGroup>
+
+                  <Button.Root
+                    onSubmit={() => {
+                      editor
+                        .chain()
+                        .focus()
+                        .setHighlight({ color: '#bfdbfe' })
+                        .run()
+                    }}
+                    data={editor.isActive('highlight', { color: '#bfdbfe' })}
+                  >
+                    <Button.Icon icon={RxPencil1} />
+                    <Button.Content title="Blue" />
+                  </Button.Root>
+
+                  <Button.Root
+                    onSubmit={() => {
+                      editor
+                        .chain()
+                        .focus()
+                        .setHighlight({ color: '#fecaca' })
+                        .run()
+                    }}
+                    data={editor.isActive('highlight', { color: '#fecaca' })}
+                  >
+                    <Button.Icon icon={RxPencil1} />
+                    <Button.Content title="Red" />
+                  </Button.Root>
+
+                  <Button.Root
+                    onSubmit={() => {
+                      editor
+                        .chain()
+                        .focus()
+                        .setHighlight({ color: '#bbf7d0' })
+                        .run()
+                    }}
+                    data={editor.isActive('highlight', { color: '#bbf7d0' })}
+                  >
+                    <Button.Icon icon={RxPencil1} />
+                    <Button.Content title="Green" />
+                  </Button.Root>
+
+                  <Button.Root
+                    onSubmit={() => {
+                      editor
+                        .chain()
+                        .focus()
+                        .setHighlight({ color: '#fef08a' })
+                        .run()
+                    }}
+                    data={editor.isActive('highlight', { color: '#fef08a' })}
+                  >
+                    <Button.Icon icon={RxPencil1} />
+                    <Button.Content title="Yellow" />
+                  </Button.Root>
+
+                  <Button.Root
+                    onSubmit={() => {
+                      editor
+                        .chain()
+                        .focus()
+                        .setHighlight({ color: '#ddd6fe' })
+                        .run()
+                    }}
+                    data={editor.isActive('highlight', { color: '#ddd6fe' })}
+                  >
+                    <Button.Icon icon={RxPencil1} />
+                    <Button.Content title="Violet" />
+                  </Button.Root>
+                </DropdownMenu.Group>
+              </DropdownMenu.Content>
             </DropdownMenu.Root>
           </Toolbar.Root>
         </BubbleMenu>
