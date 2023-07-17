@@ -15,6 +15,8 @@ import HorizontalRule from '@tiptap/extension-horizontal-rule'
 import Typography from '@tiptap/extension-typography'
 import Code from '@tiptap/extension-code'
 import Highlight from '@tiptap/extension-highlight'
+import Color from '@tiptap/extension-color'
+import TextStyle from '@tiptap/extension-text-style'
 import js from 'highlight.js/lib/languages/javascript'
 import { initialContent } from './initialContent'
 import { lowlight } from 'lowlight'
@@ -63,6 +65,8 @@ export function Editor() {
       Highlight.configure({
         multicolor: true,
       }),
+      Color,
+      TextStyle,
     ],
     content: initialContent,
     editorProps: {
@@ -358,7 +362,7 @@ export function Editor() {
                 <RxChevronDown classname="w-5 h-5" />
               </DropdownMenu.Trigger>
 
-              <DropdownMenu.Content className="w-fit flex flex-col p-4 justify-center overflow-hidden bg-white shadow-sm border border-neutral-50 shadow-black/20 rounded-lg">
+              <DropdownMenu.Content className="min-w-[120px] flex flex-col gap-5 p-4 justify-center overflow-hidden bg-white shadow-sm border border-neutral-50 shadow-black/20 rounded-lg">
                 <DropdownMenu.Group>
                   <h2 className="text-xs text-zinc-500 mb-2">Background</h2>
 
@@ -366,10 +370,11 @@ export function Editor() {
                     onSubmit={() => {
                       editor.chain().focus().unsetHighlight().run()
                     }}
-                    data={!editor.isActive('highlight')}
                   >
-                    <Button.Icon icon={RxPencil1}/>
                     <Button.Content title="Default" />
+                    {!editor.isActive('highlight') ? (
+                      <Button.Icon icon={RxPencil1} />
+                    ) : null}
                   </Button.Root>
 
                   <Button.Root
@@ -380,10 +385,11 @@ export function Editor() {
                         .setHighlight({ color: '#bfdbfe' })
                         .run()
                     }}
-                    data={editor.isActive('highlight', { color: '#bfdbfe' })}
                   >
-                    <Button.Icon icon={RxPencil1} />
                     <Button.Content title="Blue" />
+                    {editor.isActive('highlight', { color: '#bfdbfe' }) ? (
+                      <Button.Icon icon={RxPencil1} />
+                    ) : null}
                   </Button.Root>
 
                   <Button.Root
@@ -391,13 +397,14 @@ export function Editor() {
                       editor
                         .chain()
                         .focus()
-                        .setHighlight({ color: '#fecaca' })
+                        .setHighlight({ color: '#fecdd3' })
                         .run()
                     }}
-                    data={editor.isActive('highlight', { color: '#fecaca' })}
                   >
-                    <Button.Icon icon={RxPencil1} />
                     <Button.Content title="Red" />
+                    {editor.isActive('highlight', { color: '#fecdd3' }) ? (
+                      <Button.Icon icon={RxPencil1} />
+                    ) : null}
                   </Button.Root>
 
                   <Button.Root
@@ -408,10 +415,11 @@ export function Editor() {
                         .setHighlight({ color: '#bbf7d0' })
                         .run()
                     }}
-                    data={editor.isActive('highlight', { color: '#bbf7d0' })}
                   >
-                    <Button.Icon icon={RxPencil1} />
                     <Button.Content title="Green" />
+                    {editor.isActive('highlight', { color: '#bbf7d0' }) ? (
+                      <Button.Icon icon={RxPencil1} />
+                    ) : null}
                   </Button.Root>
 
                   <Button.Root
@@ -422,10 +430,11 @@ export function Editor() {
                         .setHighlight({ color: '#fef08a' })
                         .run()
                     }}
-                    data={editor.isActive('highlight', { color: '#fef08a' })}
                   >
-                    <Button.Icon icon={RxPencil1} />
                     <Button.Content title="Yellow" />
+                    {editor.isActive('highlight', { color: '#fef08a' }) ? (
+                      <Button.Icon icon={RxPencil1} />
+                    ) : null}
                   </Button.Root>
 
                   <Button.Root
@@ -436,10 +445,81 @@ export function Editor() {
                         .setHighlight({ color: '#ddd6fe' })
                         .run()
                     }}
-                    data={editor.isActive('highlight', { color: '#ddd6fe' })}
                   >
-                    <Button.Icon icon={RxPencil1} />
                     <Button.Content title="Violet" />
+                    {editor.isActive('highlight', { color: '#ddd6fe' }) ? (
+                      <Button.Icon icon={RxPencil1} />
+                    ) : null}
+                  </Button.Root>
+                </DropdownMenu.Group>
+
+                <DropdownMenu.Group>
+                  <h2 className="text-xs text-zinc-500 mb-2">Colors</h2>
+
+                  <Button.Root
+                    onSubmit={() => {
+                      editor.chain().focus().unsetColor().run()
+                    }}
+                  >
+                    <Button.Content title="Default" />
+                    {!editor.isActive('textStyle') ? (
+                      <Button.Icon icon={RxPencil1} />
+                    ) : null}
+                  </Button.Root>
+
+                  <Button.Root
+                    onSubmit={() => {
+                      editor.chain().focus().setColor('#3b82f6').run()
+                    }}
+                  >
+                    <Button.Content title="Blue" />
+                    {editor.isActive('textStyle', { color: '#3b82f6' }) ? (
+                      <Button.Icon icon={RxPencil1} />
+                    ) : null}
+                  </Button.Root>
+
+                  <Button.Root
+                    onSubmit={() => {
+                      editor.chain().focus().setColor('#f43f5e').run()
+                    }}
+                  >
+                    <Button.Content title="Red" />
+                    {editor.isActive('textStyle', { color: '#f43f5e' }) ? (
+                      <Button.Icon icon={RxPencil1} />
+                    ) : null}
+                  </Button.Root>
+
+                  <Button.Root
+                    onSubmit={() => {
+                      editor.chain().focus().setColor('#22c55e').run()
+                    }}
+                  >
+                    <Button.Content title="Green" />
+                    {editor.isActive('textStyle', { color: '#22c55e' }) ? (
+                      <Button.Icon icon={RxPencil1} />
+                    ) : null}
+                  </Button.Root>
+
+                  <Button.Root
+                    onSubmit={() => {
+                      editor.chain().focus().setColor('#eab308').run()
+                    }}
+                  >
+                    <Button.Content title="Yellow" />
+                    {editor.isActive('textStyle', { color: '#eab308' }) ? (
+                      <Button.Icon icon={RxPencil1} />
+                    ) : null}
+                  </Button.Root>
+
+                  <Button.Root
+                    onSubmit={() => {
+                      editor.chain().focus().setColor('#8b5cf6').run()
+                    }}
+                  >
+                    <Button.Content title="Violet" />
+                    {editor.isActive('textStyle', { color: '#8b5cf6' }) ? (
+                      <Button.Icon icon={RxPencil1} />
+                    ) : null}
                   </Button.Root>
                 </DropdownMenu.Group>
               </DropdownMenu.Content>
