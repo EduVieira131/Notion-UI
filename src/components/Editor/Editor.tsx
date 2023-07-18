@@ -79,7 +79,7 @@ export function Editor() {
   return (
     <>
       <EditorContent
-        className="max-w-[700px] mx-auto pt-16 prose font-serif prose-emerald prose-p:m-1 prose-hr:my-1"
+        className="max-w-[860px] w-full mx-auto pt-16 prose font-serif prose-emerald prose-p:m-1 prose-hr:my-1"
         editor={editor}
       />
 
