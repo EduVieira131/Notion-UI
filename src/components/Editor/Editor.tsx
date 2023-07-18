@@ -17,6 +17,7 @@ import Code from '@tiptap/extension-code'
 import Highlight from '@tiptap/extension-highlight'
 import Color from '@tiptap/extension-color'
 import TextStyle from '@tiptap/extension-text-style'
+import Link from '@tiptap/extension-link'
 import js from 'highlight.js/lib/languages/javascript'
 import { initialContent } from './initialContent'
 import { lowlight } from 'lowlight'
@@ -67,6 +68,7 @@ export function Editor() {
       }),
       Color,
       TextStyle,
+      Link,
     ],
     content: initialContent,
     editorProps: {
